@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Browse Items{% endblock %}
+
+{% block content %}
+<div class="pb-6 grid grid-cols-4 gap-4">
+    <div class="col-span-1">
+        <form method="get" action="{% url 'item:items' %}" class="space-y-4">
+            <div>
+                <label class="block mb-2 text-lg">Search</label>
+                <input name="query" class="w-full py-4 px-6 border rounded-xl" type="text" value="{{ query }}" placeholder="Search items..." />
+            </div>
+            <div>
+                <label class="block mb-2 text-lg">Sort By</label>
+                <select name="sort" class="w-full py-4 px-6 border rounded-xl">
+                    <option value="-created_at"{% if sort_by == '-created_at' %} selected{% endif %}>Newest First</option>
+                    <option value="price_low"{% if sort_by == 'price_low' %} selected{% endif %}>Price: Low to High</option>
+                    <option value="price_high"{% if sort_by == 'price_high' %} selected{% endif %}>Price: High to Low</option>
+                    <option value="views"{% if sort_by == 'views' %} selected{% endif %}>Most Viewed</option>
+                    <option value="name"{% if sort_by == 'name' %} selected{% endif %}>Name</option>
+                </select>
+            </div>
+            <div>
+                <label class="block mb-2 text-lg">Categories</label>
+                <select name="category" class="w-full py-4 px-6 border rounded-xl">
+                    <option value="0">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}"{% if category.id == category_id %} selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="mt-6 py-4 px-8 text-lg bg-teal-500 text-white w-full rounded-xl hover:bg-teal-700">Apply Filters</button>
+            {% if query or category_id != 0 or sort_by != '-created_at' %}
+            <a href="{% url 'item:items' %}" class="mt-2 py-4 px-8 text-lg bg-gray-500 text-white w-full rounded-xl inline-block text-center hover:bg-gray-700">Clear Filters</a>
+            {% endif %}
+        </form>
+    </div>
+    <div class="col-span-3">
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in items %}
+            <div>
+                <a href="{% url 'item:detail' item.id %}">
+                    <div>
+                        <img src="{{ item.image_url }}" class="rounded-t-xl h-48 w-full object-cover" />
+                    </div>
+                    <div class="p-6 bg-white rounded-b-xl">
+                        <h2 class="text-2xl">{{ item.name }}</h2>
+                        <div class="space-y-2">
+                            <p class="text-gray-500">Price: ₹{{ item.price }}</p>
+                            {% if item.description %}
+                            <p class="text-gray-500 text-sm truncate">{{ item.description }}</p>
+                            {% endif %}
+                            <div class="flex justify-between text-sm text-gray-500">
+                                <span>Views: {{ item.views }}</span>
+                                <span>Added {{ item.created_at|timesince }} ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-2">
+                    {% if request.user.is_authenticated and item.id in user_wishlist %}
+                    <a href="{% url 'item:toggle_wishlist' item.id %}" class="block w-full py-3 text-center text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Remove from Wishlist</a>
+                    {% elif request.user.is_authenticated %}
+                    <a href="{% url 'item:toggle_wishlist' item.id %}" class="block w-full py-3 text-center text-lg font-semibold bg-pink-500 text-white rounded-xl hover:bg-pink-700">Add to Wishlist</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

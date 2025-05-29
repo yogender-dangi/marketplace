@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %} {% block title %}My Wishlist{% endblock %} 
+{% block content %}
+<div class="pb-6">
+  <h1 class="mb-6 text-3xl">My Wishlist</h1>
+  {% if items %}
+  <div class="grid grid-cols-3 gap-3">
+    {% for item in items %}
+    <div>
+      <a href="{% url 'item:detail' item.id %}"
+        ><div>
+          <img
+            src="{{ item.image_url }}"
+            class="rounded-t-xl h-48 w-full object-cover"
+          />
+        </div>
+        <div class="p-6 bg-white rounded-b-xl">
+          <h2 class="text-2xl">{{ item.name }}</h2>
+          <div class="space-y-2">
+            <p class="text-gray-500">Price: ₹{{ item.price }}</p>
+            {% if item.description %}
+            <p class="text-gray-500 text-sm truncate">{{ item.description }}</p>
+            {% endif %}
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>Views: {{ item.views }}</span
+              ><span>Added {{ item.created_at|timesince }} ago</span>
+            </div>
+          </div>
+        </div></a
+      >
+      <div class="mt-2">
+        <a
+          href="{% url 'item:toggle_wishlist' item.id %}"
+          class="block w-full py-3 text-center text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700"
+          >Remove from Wishlist</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-12 bg-gray-100 rounded-xl">
+    <p class="text-gray-500 text-xl mb-4">Your wishlist is empty</p>
+    <a
+      href="{% url 'item:items' %}"
+      class="inline-block py-4 px-8 text-lg bg-teal-500 text-white rounded-xl hover:bg-teal-700"
+      >Browse Items</a
+    >
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

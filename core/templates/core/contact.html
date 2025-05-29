@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}{% block title %}Contact Us{% endblock %}{% block
+content %}
+<div class="max-w-4xl mx-auto p-6">
+  <h1 class="mb-6 text-3xl">Contact Us</h1>
+  <div class="bg-gray-100 p-6 rounded-xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Get in Touch</h2>
+        <p class="text-gray-600 mb-4">
+          Have questions about our marketplace? We're here to help!
+        </p>
+        <div class="space-y-4">
+          <div>
+            <h3 class="font-semibold">Email</h3>
+            <p class="text-teal-600">support@marketplace.com</p>
+          </div>
+          <div>
+            <h3 class="font-semibold">Phone</h3>
+            <p class="text-teal-600">+1 (555) 123-4567</p>
+          </div>
+          <div>
+            <h3 class="font-semibold">Address</h3>
+            <p class="text-gray-600">
+              123 Market Street<br />Suite 100<br />San Francisco, CA 94105
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Business Hours</h2>
+        <div class="space-y-2">
+          <p>
+            <span class="font-semibold">Monday - Friday:</span> 9:00 AM - 6:00
+            PM
+          </p>
+          <p><span class="font-semibold">Saturday:</span> 10:00 AM - 4:00 PM</p>
+          <p><span class="font-semibold">Sunday:</span> Closed</p>
+        </div>
+        <div class="mt-6">
+          <h2 class="text-xl font-semibold mb-4">Follow Us</h2>
+          <div class="flex space-x-4">
+            <a href="#" class="text-teal-500 hover:text-teal-700">Twitter</a
+            ><a href="#" class="text-teal-500 hover:text-teal-700">Facebook</a
+            ><a href="#" class="text-teal-500 hover:text-teal-700">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

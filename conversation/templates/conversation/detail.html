@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}{% block title %}Conversation{% endblock %}{%
+block content %}
+<h1 class="mb-6 text-3xl">Conversation</h1>
+<div class="space-y-6">
+  {% for message in conversation.conversationmessage_set.all %}
+  <div
+    class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl"
+  >
+    <div>
+      <p class="mb-4">
+        <strong>{{ message.created_by.username }}</strong> @ {{
+        message.created_at }}{% if not message.read and message.created_by !=
+        request.user %}<span class="ml-2 text-xs text-red-500">Unread</span>{%
+        endif %}
+      </p>
+      <p>{{ message.content }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<form method="post" action="." class="mt-6">
+  {% csrf_token %}{{ form.as_p }}<button
+    class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white"
+  >
+    Send
+  </button>
+</form>
+{% if request.user in conversation.archived_by.all %}
+<form
+  method="post"
+  action="{% url 'conversation:unarchive_conversation' conversation.id %}"
+  class="mt-4"
+>
+  {% csrf_token %}<button
+    type="submit"
+    class="text-sm text-teal-500 hover:underline"
+  >
+    Unarchive Conversation
+  </button>
+</form>
+{% else %}
+<form
+  method="post"
+  action="{% url 'conversation:archive_conversation' conversation.id %}"
+  class="mt-4"
+>
+  {% csrf_token %}<button
+    type="submit"
+    class="text-sm text-red-500 hover:underline"
+  >
+    Archive Conversation
+  </button>
+</form>
+{% endif %}{% endblock %}
