@@ -1,0 +1,23 @@
+# Nixpacks configuration for Django deployment
+
+# Specify the language and version
+[phases.setup]
+nixPkgs = ["python311", "python311Packages.pip", "python311Packages.gunicorn"]
+
+# Install Python dependencies
+[phases.install]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt"
+]
+
+# Collect static files and run migrations
+[phases.build]
+cmds = [
+  "python manage.py collectstatic --noinput",
+  "python manage.py migrate --noinput"
+]
+
+# Start the Django app with Gunicorn
+[start]
+cmd = "gunicorn puddle.wsgi:application --bind 0.0.0.0:$PORT"
