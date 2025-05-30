@@ -78,6 +78,9 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
+# If behind a proxy (like on Netlify/Sevella), tell Django to trust X-Forwarded-Proto for HTTPS detection
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ROOT_URLCONF = 'puddle.urls'
 
 TEMPLATES = [
