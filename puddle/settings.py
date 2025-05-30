@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +32,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '!d(l^-tlox*1y6z2o$p=a(k0qs$pec
 DEBUG = False
 
 # Set this to your domain(s) or server IP(s)
-ALLOWED_HOSTS = ['apnabazaar.duckdns.org']  # Update to your DuckDNS subdomain
+# ALLOWED_HOSTS = ['apnabazaar.duckdns.org']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'apnaabazaar.shop']  # Update to your DuckDNS subdomain
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -65,15 +68,15 @@ MIDDLEWARE = [
 ]
 
 # Security settings
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_SECONDS = 0  # 1 year
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# X_FRAME_OPTIONS = 'DENY'
 
 ROOT_URLCONF = 'puddle.urls'
 
@@ -145,6 +148,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
