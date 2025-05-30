@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '!d(l^-tlox*1y6z2o$p=a(k0qs$pecl3$-o)*gz+74vs&w-+wh')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Set this to your domain(s) or server IP(s)
 # ALLOWED_HOSTS = ['apnabazaar.duckdns.org']
@@ -68,15 +68,15 @@ MIDDLEWARE = [
 ]
 
 # Security settings
-SECURE_HSTS_SECONDS = 0  # 1 year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_SECONDS = 36000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# X_FRAME_OPTIONS = 'DENY'
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 
 ROOT_URLCONF = 'puddle.urls'
 
